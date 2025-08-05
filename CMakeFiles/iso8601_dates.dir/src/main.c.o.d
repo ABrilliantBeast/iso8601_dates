@@ -11,7 +11,7 @@ CMakeFiles/iso8601_dates.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
@@ -55,4 +55,8 @@ CMakeFiles/iso8601_dates.dir/src/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h
+ /usr/include/strings.h /home/bryans/iso8601_dates/src/include/filter.h \
+ /home/bryans/iso8601_dates/src/include/iso8601.h \
+ /home/bryans/iso8601_dates/src/include/reader.h \
+ /home/bryans/iso8601_dates/src/include/iso8601.h \
+ /home/bryans/iso8601_dates/src/include/writer.h

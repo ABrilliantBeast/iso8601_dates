@@ -129,6 +129,54 @@ iso8601_dates/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/build
 .PHONY : iso8601_dates/fast
 
+src/filter.o: src/filter.c.o
+.PHONY : src/filter.o
+
+# target to build an object file
+src/filter.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/filter.c.o
+.PHONY : src/filter.c.o
+
+src/filter.i: src/filter.c.i
+.PHONY : src/filter.i
+
+# target to preprocess a source file
+src/filter.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/filter.c.i
+.PHONY : src/filter.c.i
+
+src/filter.s: src/filter.c.s
+.PHONY : src/filter.s
+
+# target to generate assembly for a file
+src/filter.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/filter.c.s
+.PHONY : src/filter.c.s
+
+src/is8601.o: src/is8601.c.o
+.PHONY : src/is8601.o
+
+# target to build an object file
+src/is8601.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/is8601.c.o
+.PHONY : src/is8601.c.o
+
+src/is8601.i: src/is8601.c.i
+.PHONY : src/is8601.i
+
+# target to preprocess a source file
+src/is8601.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/is8601.c.i
+.PHONY : src/is8601.c.i
+
+src/is8601.s: src/is8601.c.s
+.PHONY : src/is8601.s
+
+# target to generate assembly for a file
+src/is8601.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/is8601.c.s
+.PHONY : src/is8601.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
@@ -153,6 +201,54 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/reader.o: src/reader.c.o
+.PHONY : src/reader.o
+
+# target to build an object file
+src/reader.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/reader.c.o
+.PHONY : src/reader.c.o
+
+src/reader.i: src/reader.c.i
+.PHONY : src/reader.i
+
+# target to preprocess a source file
+src/reader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/reader.c.i
+.PHONY : src/reader.c.i
+
+src/reader.s: src/reader.c.s
+.PHONY : src/reader.s
+
+# target to generate assembly for a file
+src/reader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/reader.c.s
+.PHONY : src/reader.c.s
+
+src/writer.o: src/writer.c.o
+.PHONY : src/writer.o
+
+# target to build an object file
+src/writer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/writer.c.o
+.PHONY : src/writer.c.o
+
+src/writer.i: src/writer.c.i
+.PHONY : src/writer.i
+
+# target to preprocess a source file
+src/writer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/writer.c.i
+.PHONY : src/writer.c.i
+
+src/writer.s: src/writer.c.s
+.PHONY : src/writer.s
+
+# target to generate assembly for a file
+src/writer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/writer.c.s
+.PHONY : src/writer.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +258,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... iso8601_dates"
+	@echo "... src/filter.o"
+	@echo "... src/filter.i"
+	@echo "... src/filter.s"
+	@echo "... src/is8601.o"
+	@echo "... src/is8601.i"
+	@echo "... src/is8601.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/reader.o"
+	@echo "... src/reader.i"
+	@echo "... src/reader.s"
+	@echo "... src/writer.o"
+	@echo "... src/writer.i"
+	@echo "... src/writer.s"
 .PHONY : help
 
 

@@ -11,6 +11,6 @@ string(REPLACE " " "_" ProjectId ${ProjectId})
 project(${ProjectId})
 
 file(GLOB project_sources src/*.c)
-file(GLOB project_headers src/*.h)
+file(GLOB project_headers src/include/*.h)
 
 add_executable(${ProjectId} ${project_sources} ${project_headers})

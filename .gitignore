@@ -1,1 +1,5 @@
-./build
+build/
+test/out/
+**/*.o
+**/*.d
+**/*.dir

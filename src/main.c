@@ -1,8 +1,14 @@
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "include/filter.h"
+#include "include/iso8601.h"
+#include "include/reader.h"
+#include "include/writer.h"
 
 #define MUST(COND, MSG)                                    \
   {                                                        \
@@ -10,6 +16,7 @@
       printf("Error: %s, %s\n", MSG, strerror(errno)); exit(1); \
     }                                                      \
   }
+
 
 void print_usage() { printf("Usage 'iso8601_dates infile outfile'\n"); }
 
@@ -30,6 +37,26 @@ int main(int argc, const char* argv[]) {
   MUST(in_file != NULL, "Failed to open input file");
   out_file = fopen(out_name, "w");
   MUST(out_file != NULL, "Failed to open output file");
+
+  Iso8601_date_t date = NULL;
+
+  init_reader();
+  init_filter();
+  init_writer();
+
+  while (!feof(in_file)) {
+    // probably an EOF, continue to hit to op of loop and it should exit
+    if (read_date(in_file, &date) < 0) {
+      continue;
+    }
+    //Iso8601_date_t filtered_date = filter_date(date);
+    
+    if (write_date(out_file, date) < 0) {
+      perror("Write error\n");
+      break;
+    }
+  
+  }
 
   // Close files
   fclose(in_file);

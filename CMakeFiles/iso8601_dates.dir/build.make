@@ -69,10 +69,38 @@ include CMakeFiles/iso8601_dates.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/iso8601_dates.dir/flags.make
 
+CMakeFiles/iso8601_dates.dir/src/filter.c.o: CMakeFiles/iso8601_dates.dir/flags.make
+CMakeFiles/iso8601_dates.dir/src/filter.c.o: src/filter.c
+CMakeFiles/iso8601_dates.dir/src/filter.c.o: CMakeFiles/iso8601_dates.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/iso8601_dates.dir/src/filter.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/iso8601_dates.dir/src/filter.c.o -MF CMakeFiles/iso8601_dates.dir/src/filter.c.o.d -o CMakeFiles/iso8601_dates.dir/src/filter.c.o -c /home/bryans/iso8601_dates/src/filter.c
+
+CMakeFiles/iso8601_dates.dir/src/filter.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/iso8601_dates.dir/src/filter.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bryans/iso8601_dates/src/filter.c > CMakeFiles/iso8601_dates.dir/src/filter.c.i
+
+CMakeFiles/iso8601_dates.dir/src/filter.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/iso8601_dates.dir/src/filter.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bryans/iso8601_dates/src/filter.c -o CMakeFiles/iso8601_dates.dir/src/filter.c.s
+
+CMakeFiles/iso8601_dates.dir/src/is8601.c.o: CMakeFiles/iso8601_dates.dir/flags.make
+CMakeFiles/iso8601_dates.dir/src/is8601.c.o: src/is8601.c
+CMakeFiles/iso8601_dates.dir/src/is8601.c.o: CMakeFiles/iso8601_dates.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/iso8601_dates.dir/src/is8601.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/iso8601_dates.dir/src/is8601.c.o -MF CMakeFiles/iso8601_dates.dir/src/is8601.c.o.d -o CMakeFiles/iso8601_dates.dir/src/is8601.c.o -c /home/bryans/iso8601_dates/src/is8601.c
+
+CMakeFiles/iso8601_dates.dir/src/is8601.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/iso8601_dates.dir/src/is8601.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bryans/iso8601_dates/src/is8601.c > CMakeFiles/iso8601_dates.dir/src/is8601.c.i
+
+CMakeFiles/iso8601_dates.dir/src/is8601.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/iso8601_dates.dir/src/is8601.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bryans/iso8601_dates/src/is8601.c -o CMakeFiles/iso8601_dates.dir/src/is8601.c.s
+
 CMakeFiles/iso8601_dates.dir/src/main.c.o: CMakeFiles/iso8601_dates.dir/flags.make
 CMakeFiles/iso8601_dates.dir/src/main.c.o: src/main.c
 CMakeFiles/iso8601_dates.dir/src/main.c.o: CMakeFiles/iso8601_dates.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/iso8601_dates.dir/src/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/iso8601_dates.dir/src/main.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/iso8601_dates.dir/src/main.c.o -MF CMakeFiles/iso8601_dates.dir/src/main.c.o.d -o CMakeFiles/iso8601_dates.dir/src/main.c.o -c /home/bryans/iso8601_dates/src/main.c
 
 CMakeFiles/iso8601_dates.dir/src/main.c.i: cmake_force
@@ -83,17 +111,53 @@ CMakeFiles/iso8601_dates.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/iso8601_dates.dir/src/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bryans/iso8601_dates/src/main.c -o CMakeFiles/iso8601_dates.dir/src/main.c.s
 
+CMakeFiles/iso8601_dates.dir/src/reader.c.o: CMakeFiles/iso8601_dates.dir/flags.make
+CMakeFiles/iso8601_dates.dir/src/reader.c.o: src/reader.c
+CMakeFiles/iso8601_dates.dir/src/reader.c.o: CMakeFiles/iso8601_dates.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/iso8601_dates.dir/src/reader.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/iso8601_dates.dir/src/reader.c.o -MF CMakeFiles/iso8601_dates.dir/src/reader.c.o.d -o CMakeFiles/iso8601_dates.dir/src/reader.c.o -c /home/bryans/iso8601_dates/src/reader.c
+
+CMakeFiles/iso8601_dates.dir/src/reader.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/iso8601_dates.dir/src/reader.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bryans/iso8601_dates/src/reader.c > CMakeFiles/iso8601_dates.dir/src/reader.c.i
+
+CMakeFiles/iso8601_dates.dir/src/reader.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/iso8601_dates.dir/src/reader.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bryans/iso8601_dates/src/reader.c -o CMakeFiles/iso8601_dates.dir/src/reader.c.s
+
+CMakeFiles/iso8601_dates.dir/src/writer.c.o: CMakeFiles/iso8601_dates.dir/flags.make
+CMakeFiles/iso8601_dates.dir/src/writer.c.o: src/writer.c
+CMakeFiles/iso8601_dates.dir/src/writer.c.o: CMakeFiles/iso8601_dates.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/iso8601_dates.dir/src/writer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/iso8601_dates.dir/src/writer.c.o -MF CMakeFiles/iso8601_dates.dir/src/writer.c.o.d -o CMakeFiles/iso8601_dates.dir/src/writer.c.o -c /home/bryans/iso8601_dates/src/writer.c
+
+CMakeFiles/iso8601_dates.dir/src/writer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/iso8601_dates.dir/src/writer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/bryans/iso8601_dates/src/writer.c > CMakeFiles/iso8601_dates.dir/src/writer.c.i
+
+CMakeFiles/iso8601_dates.dir/src/writer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/iso8601_dates.dir/src/writer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/bryans/iso8601_dates/src/writer.c -o CMakeFiles/iso8601_dates.dir/src/writer.c.s
+
 # Object files for target iso8601_dates
 iso8601_dates_OBJECTS = \
-"CMakeFiles/iso8601_dates.dir/src/main.c.o"
+"CMakeFiles/iso8601_dates.dir/src/filter.c.o" \
+"CMakeFiles/iso8601_dates.dir/src/is8601.c.o" \
+"CMakeFiles/iso8601_dates.dir/src/main.c.o" \
+"CMakeFiles/iso8601_dates.dir/src/reader.c.o" \
+"CMakeFiles/iso8601_dates.dir/src/writer.c.o"
 
 # External object files for target iso8601_dates
 iso8601_dates_EXTERNAL_OBJECTS =
 
+bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/src/filter.c.o
+bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/src/is8601.c.o
 bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/src/main.c.o
+bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/src/reader.c.o
+bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/src/writer.c.o
 bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/build.make
 bin/iso8601_dates: CMakeFiles/iso8601_dates.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable bin/iso8601_dates"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/bryans/iso8601_dates/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable bin/iso8601_dates"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/iso8601_dates.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
