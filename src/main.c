@@ -1,12 +1,14 @@
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MUST(COND, MSG)                    \
-  {                                        \
-    if (!(COND)) {                         \
-      printf("Error: %s\n", MSG), exit(1); \
-    }                                      \
+#define MUST(COND, MSG)                                    \
+  {                                                        \
+    if (!(COND)) {                                         \
+      printf("Error: %s, %s\n", MSG, strerror(errno)); exit(1); \
+    }                                                      \
   }
 
 void print_usage() { printf("Usage 'iso8601_dates infile outfile'\n"); }
@@ -28,7 +30,6 @@ int main(int argc, const char* argv[]) {
   MUST(in_file != NULL, "Failed to open input file");
   out_file = fopen(out_name, "w");
   MUST(out_file != NULL, "Failed to open output file");
-
 
   // Close files
   fclose(in_file);
