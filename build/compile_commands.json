@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/bryans/iso8601_dates/build",
-  "command": "/usr/bin/gcc   -g -o CMakeFiles/iso8601_dates.dir/src/main.c.o -c /home/bryans/iso8601_dates/src/main.c",
-  "file": "/home/bryans/iso8601_dates/src/main.c",
-  "output": "CMakeFiles/iso8601_dates.dir/src/main.c.o"
-}
-]

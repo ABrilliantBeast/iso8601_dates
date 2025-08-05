@@ -1,3 +1,0 @@
-/home/bryans/iso8601_dates/build/CMakeFiles/iso8601_dates.dir
-/home/bryans/iso8601_dates/build/CMakeFiles/edit_cache.dir
-/home/bryans/iso8601_dates/build/CMakeFiles/rebuild_cache.dir
