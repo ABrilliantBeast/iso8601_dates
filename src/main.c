@@ -40,34 +40,36 @@ int main(int argc, const char* argv[]) {
   out_file = fopen(out_name, "w");
   MUST(out_file != NULL, "Failed to open output file");
 
-  iso8601_date_t date = NULL;
-
+  
   init_reader();
   init_validate();
   init_filter();
   init_writer();
-
+  
   while (!feof(in_file)) {
+    iso8601_date_t date = NULL;
     // probably an EOF, continue to hit to op of loop and it should exit
     if (read_date(in_file, &date) < 0) {
       if (date != NULL) {
-        free(date);
+        delete_date(date);
       }
       continue;
     }
 
     if (validate_date(date) == false) {
-      free(date);
+      delete_date(date);
       continue;
     }
-    //iso8601_date_t filtered_date = filter_date(date);
+
+    if (filter_date(date) == true) {
+      delete_date(date);
+      continue;
+    }
     
     if (write_date(out_file, date) < 0) {
       perror("Write error\n");
       break;
     }
-    free(date);
-    date = NULL;
   }
 
   // Close files

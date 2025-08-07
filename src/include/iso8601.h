@@ -5,7 +5,8 @@
 
 typedef   char *iso8601_date_t;
 
-iso8601_date_t *create_date(char *date);
+iso8601_date_t create_date(char *date);
+void delete_date(iso8601_date_t date);
 
 int date_get_len(iso8601_date_t d);
 

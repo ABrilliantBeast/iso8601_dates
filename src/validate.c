@@ -6,22 +6,67 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Struct parser  keeps position in the date string
+typedef struct parse {
+  iso8601_date_t date;
+  int len;
+  int position;
+} parser_t;
+
+
+typedef enum field_type {
+  VAL_NUMBER,
+  VAL_DELIM,
+} field_type_t;
+
+// Callback used to test if character valid
 typedef int (*char_test_t)(int c);
 
-typedef struct validator {
-  iso8601_date_t date;
-  int  len;
-  int  position;
-} validator_t;
+// Used to capture a field in the date
+typedef struct field_rec {
+  field_type_t type;
+  bool more;
+  char_test_t test_char;
+  int size;
+  int min;
+  int max;
+} field_validator_t;
 
-validator_t new_validator(iso8601_date_t date){
-  validator_t v = {date, date_get_len(date),  0};
+// character checkers which return 0 or 1 and match
+// the signature of the functions in ctype.h
+int is_dash(int c) { return c == '-'; }
+int is_T(int c) { return c == 'T'; }
+int is_colon(int c) { return c == ':'; }
+int is_zone(int c) { return c == 'Z'; }
+
+static field_validator_t fields[] = {
+    {VAL_NUMBER, false, isdigit, 4, 0, 9999},  // Year
+    {VAL_DELIM, false, is_dash, 1, 0, 0},      // -
+    {VAL_NUMBER, false, isdigit, 2, 1, 12},    // Month
+    {VAL_DELIM, false, is_dash, 1, 0, 0},      // -
+    {VAL_NUMBER, false, isdigit, 2, 1, 31},    // Day
+    {VAL_DELIM, false, is_T, 1, 0, 0},         // T
+    {VAL_NUMBER, false, isdigit, 2, 0, 23},    // Hours
+    {VAL_DELIM, false, is_colon, 1, 0, 0},     // :
+    {VAL_NUMBER, false, isdigit, 2, 0, 59},    // Minutes
+    {VAL_DELIM, false, is_colon, 1, 0, 0},     // :
+    {VAL_NUMBER, false, isdigit, 2, 0,
+     59},                                // Seconds, won't include leap second
+    {VAL_DELIM, true, is_zone, 1, 0, 0}  // Zone designator
+                                         // TODO:  Handle adjustments
+};
+
+// TODO:  any validation specific initialization
+void init_validate() {}
+
+parser_t new_parser(iso8601_date_t date) {
+  parser_t v = {date, date_get_len(date), 0};
   return v;
 }
 
 // Gets a character from the date string returned in c
 // If there are no more characters, return false
-bool validator_get_char(validator_t *v, char *c) {
+bool parser_get_char(parser_t *v, char *c) {
   assert(v != NULL);
   assert(c != NULL);
   if (v->position == v->len) {
@@ -33,53 +78,17 @@ bool validator_get_char(validator_t *v, char *c) {
   return true;
 }
 
-typedef enum field_type {
-  VAL_NUMBER,
-  VAL_DELIM,
-} field_type_t;
+// Uses the field validator to grab the required characters and validates
+// them for correctness and range (if the value is an integer)
+bool evaluate_field(const field_validator_t *field, parser_t *date) {
+  assert(field != NULL);
+  assert(date != NULL);
 
-typedef struct field_rec {
-  field_type_t type;
-
-  bool more;
-  char_test_t test_char;
-  int size;
-  int min;
-  int max;
-} field_validator_t;
-
-int is_dash(int c) { return c == '-';}
-int is_T(int c) {return c == 'T';}
-int is_colon(int c){return c == ':';}
-int is_zone(int c) { return c == 'Z';}
-
-static field_validator_t fields[] = {
-    {VAL_NUMBER, false, isdigit, 4, 0, 9999},  // Year
-    {VAL_DELIM, false, is_dash, 1, 0, 0},      // -
-    {VAL_NUMBER, false, isdigit, 2, 1, 12},    // Month
-    {VAL_DELIM, false, is_dash, 1, 0, 0},      // -
-    {VAL_NUMBER, false, isdigit, 2, 1, 31},    // Day
-    {VAL_DELIM, false, is_T, 1, 0, 0},      // T    
-    {VAL_NUMBER, false, isdigit, 2, 0, 23}, // Hour
-    {VAL_DELIM, false, is_colon, 1, 0, 0},  // :
-    {VAL_NUMBER, false, isdigit, 2, 0, 59}, // Minute
-    {VAL_DELIM, false, is_colon, 1, 0, 0},  // :
-    {VAL_NUMBER, false, isdigit, 2, 0, 59}, // Second, won't include leap second
-    {VAL_DELIM, true, is_zone, 1, 0, 0}  // Zone designator
-};
-
-
-//TODO:  any validation specific initialization
-void init_validate() {
-
-}
-
-bool evaluate_field(const field_validator_t *field, validator_t *date) {
   char buff[16];
   bool valid = true;
   for (int i = 0; i < field->size; i++) {
     assert(i < 16);
-    if (validator_get_char(date, &buff[i]) == false) {
+    if (parser_get_char(date, &buff[i]) == false) {
       return false;
     }
     if (field->test_char(buff[i]) == false) {
@@ -101,19 +110,18 @@ bool evaluate_field(const field_validator_t *field, validator_t *date) {
   return valid;
 }
 
-const int NUM_FIELDS = (sizeof(fields)/sizeof(fields[0]));
-
-bool validate_date(const iso8601_date_t date){
+bool validate_date(const iso8601_date_t date) {
   assert(date != NULL);
+  const int NUM_FIELDS = (sizeof(fields) / sizeof(fields[0]));
 
   bool valid = true;
-  validator_t date_validator = new_validator(date);
+  parser_t date_parser = new_parser(date);
 
-  for (int f = 0; f < NUM_FIELDS; f ++) {
+  for (int f = 0; f < NUM_FIELDS; f++) {
     const field_validator_t *field = &fields[f];
-    if ( evaluate_field(field, &date_validator) == false){
+    if (evaluate_field(field, &date_parser) == false) {
       valid = false;
-      fprintf(stderr, "Invalid date '%s'\n", date_validator.date);
+      fprintf(stderr, "Invalid date '%s'\n", date_parser.date);
       break;
     }
   }
