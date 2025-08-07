@@ -4,3 +4,5 @@ test/out/
 **/*.d
 **/*.dir
 CMakeFiles/
+bin/
+

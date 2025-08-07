@@ -13,4 +13,7 @@ project(${ProjectId})
 file(GLOB project_sources src/*.c)
 file(GLOB project_headers src/include/*.h)
 
+
+#set(CMAKE_EXE_LINKER_FLAGS "-lassert")
+
 add_executable(${ProjectId} ${project_sources} ${project_headers})

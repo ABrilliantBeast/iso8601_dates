@@ -225,6 +225,30 @@ src/reader.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/reader.c.s
 .PHONY : src/reader.c.s
 
+src/validate.o: src/validate.c.o
+.PHONY : src/validate.o
+
+# target to build an object file
+src/validate.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/validate.c.o
+.PHONY : src/validate.c.o
+
+src/validate.i: src/validate.c.i
+.PHONY : src/validate.i
+
+# target to preprocess a source file
+src/validate.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/validate.c.i
+.PHONY : src/validate.c.i
+
+src/validate.s: src/validate.c.s
+.PHONY : src/validate.s
+
+# target to generate assembly for a file
+src/validate.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/iso8601_dates.dir/build.make CMakeFiles/iso8601_dates.dir/src/validate.c.s
+.PHONY : src/validate.c.s
+
 src/writer.o: src/writer.c.o
 .PHONY : src/writer.o
 
@@ -270,6 +294,9 @@ help:
 	@echo "... src/reader.o"
 	@echo "... src/reader.i"
 	@echo "... src/reader.s"
+	@echo "... src/validate.o"
+	@echo "... src/validate.i"
+	@echo "... src/validate.s"
 	@echo "... src/writer.o"
 	@echo "... src/writer.i"
 	@echo "... src/writer.s"

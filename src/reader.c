@@ -10,12 +10,12 @@ void init_reader(){
 }
 
 
-int read_date(FILE *in_file, Iso8601_date_t *date) {
+int read_date(FILE *in_file, iso8601_date_t *date) {
   char *line = NULL;
   size_t n = 0;
   int len  = getline(&line, &n, in_file);
   // Negative value means it couldn't read,
-  if (len < 0) {
+  if (len <= 0) {
     *date = NULL;
     return -1;
   }
@@ -27,6 +27,8 @@ int read_date(FILE *in_file, Iso8601_date_t *date) {
     // TODO: Better errors
     return -1;
   } 
+  // Erase the \n
+  line[len-1] = '\0';
   *date = line;
   return 0;
 }
