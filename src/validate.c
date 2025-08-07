@@ -31,6 +31,7 @@ typedef struct field_rec {
   int size;
   int min;
   int max;
+
 } field_validator_t;
 
 // character checkers which return 0 or 1 and match
@@ -71,9 +72,9 @@ parser_t new_parser(iso8601_date_t date) {
   return v;
 }
 
-// Gets a character from the date string returned in c
-// If there are no more characters, return false
-bool parser_get_char(parser_t *v, char *c) {
+
+// Peek at the current character, but don't increment
+bool parser_peek_char(parser_t *v, char *c) {
   assert(v != NULL);
   assert(c != NULL);
   if (v->position == v->len) {
@@ -81,8 +82,15 @@ bool parser_get_char(parser_t *v, char *c) {
     return false;
   }
   *c = v->date[v->position];
-  ++v->position;
   return true;
+}
+// Gets a character from the date string returned in c
+// If there are no more characters, return false
+bool parser_get_char(parser_t *v, char *c) {
+  bool ret = parser_peek_char(v, c);
+  if (ret == true) {
+  ++v->position;}
+  return ret;
 }
 
 void parser_reset_char(parser_t *v) {
@@ -133,29 +141,31 @@ bool validate_date(const iso8601_date_t date) {
   assert(date != NULL);
   const int NUM_FIELDS = (sizeof(fields) / sizeof(fields[0]));
 
-  bool valid = true;
+  bool field_valid = true;
   bool match_option = false;
   parser_t date_parser = new_parser(date);
 
   for (int f = 0; f < NUM_FIELDS; f++) {
     const field_validator_t *field = &fields[f];
+    // Handle the case where the timezone delimiter can be Z,+,-
+    // Loop until it is found or no match
     if (field->type == VAL_OPTION) {
+      // We found the option, loop through the reset.
       if (match_option == true) continue;
       // Check the option and if not there set it to the return value
       // and keep processing
-      match_option = valid = evaluate_field(field, &date_parser);
+      match_option = field_valid = evaluate_field(field, &date_parser);
 
-      if (valid && field->done) {
+      if (field_valid && field->done) {
         break;
       }
     } else if (evaluate_field(field, &date_parser) == false) {
-      match_option = false;
-      valid = false;
+      field_valid = false;
       break;
     }
   }
-  if (!valid) {
+  if (!field_valid) {
     fprintf(stderr, "Invalid date '%s'\n", date_parser.date);
   }
-  return valid;
+  return field_valid;
 }
