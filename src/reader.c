@@ -14,8 +14,9 @@ int read_date(FILE *in_file, iso8601_date_t *date) {
   char *line = NULL;
   size_t n = 0;
   int len  = getline(&line, &n, in_file);
-  // Negative value means it couldn't read,
-  if (len <= 0) {
+  // Value less than one means empty line or couldn't read
+  // 1 means just a carriage return
+  if (len <= 1) {
     *date = NULL;
     return -1;
   }

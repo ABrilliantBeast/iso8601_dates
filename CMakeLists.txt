@@ -13,6 +13,7 @@ project(${ProjectId})
 file(GLOB project_sources src/*.c)
 file(GLOB project_headers src/include/*.h)
 
+set (CMAKE_C_FLAGS "-g -O0")
 
 #set(CMAKE_EXE_LINKER_FLAGS "-lassert")
 
