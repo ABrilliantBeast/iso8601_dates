@@ -1,10 +1,8 @@
-#include "include/iso8601.h"
-
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
-
+#include "include/iso8601.h"
 
 // Create a date type
 // date should be dynamic memory and should be consumed in the process
@@ -25,7 +23,7 @@ void delete_date(iso8601_date_t *date) {
   free(date);
 }
 
-int date_get_len(iso8601_date_t *date){
+int date_get_len(iso8601_date_t *date) {
   assert(date != NULL);
   assert(date->str != NULL);
 

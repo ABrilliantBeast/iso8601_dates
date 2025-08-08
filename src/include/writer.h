@@ -7,4 +7,4 @@
 void init_writer();
 
 int write_date(FILE *out_file, iso8601_date_t *date);
-#endif // WRITER_H
+#endif  // WRITER_H

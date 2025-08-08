@@ -11,14 +11,13 @@
 #include "include/validate.h"
 #include "include/writer.h"
 
-
-#define MUST(COND, MSG)                                    \
-  {                                                        \
-    if (!(COND)) {                                         \
-      printf("Error: %s, %s\n", MSG, strerror(errno)); exit(1); \
-    }                                                      \
+#define MUST(COND, MSG)                                \
+  {                                                    \
+    if (!(COND)) {                                     \
+      printf("Error: %s, %s\n", MSG, strerror(errno)); \
+      exit(1);                                         \
+    }                                                  \
   }
-
 
 void print_usage() { printf("Usage 'iso8601_dates infile outfile'\n"); }
 
@@ -40,14 +39,13 @@ int main(int argc, const char* argv[]) {
   out_file = fopen(out_name, "w");
   MUST(out_file != NULL, "Failed to open output file");
 
-  
   init_reader();
   init_validate();
   init_filter();
   init_writer();
-  
+
   while (!feof(in_file)) {
-    iso8601_date_t *date = NULL;
+    iso8601_date_t* date = NULL;
     // probably an EOF, continue to hit to op of loop and it should exit
     if (read_date(in_file, &date) < 0) {
       if (date != NULL) {
@@ -65,7 +63,7 @@ int main(int argc, const char* argv[]) {
       delete_date(date);
       continue;
     }
-    
+
     if (write_date(out_file, date) < 0) {
       perror("Write error\n");
       break;

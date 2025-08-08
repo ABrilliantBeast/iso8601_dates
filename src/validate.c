@@ -13,12 +13,7 @@ typedef struct parse {
   int position;
 } parser_t;
 
-
-typedef enum field_type {
-  VAL_NUMBER,
-  VAL_DELIM,
-  VAL_OPTION
-} field_type_t;
+typedef enum field_type { VAL_NUMBER, VAL_DELIM, VAL_OPTION } field_type_t;
 
 // Callback used to test if character valid
 typedef int (*char_test_t)(int);
@@ -44,11 +39,12 @@ int is_T(int c) { return c == 'T'; }
 int is_colon(int c) { return c == ':'; }
 int is_zone(int c) { return c == 'Z'; }
 int is_plus(int c) { return c == '+'; }
-int is_minus(int c) {return c == '-';}
+int is_minus(int c) { return c == '-'; }
 
 // Callback to help calculate seconds in the ate
 
-static const int month_to_days[]={0,31,59,60,90,121,151,182,212,243,273,304,334,365};
+static const int month_to_days[] = {0,   31,  59,  60,  90,  121, 151,
+                                    182, 212, 243, 273, 304, 334, 365};
 
 void years_to_seconds(iso8601_date_t *d, int y) {
   d->seconds += (y * 365 + y / 4 - y / 100 + y / 400) * 24 * 60 * 60;
@@ -69,8 +65,8 @@ void set_z_zone(iso8601_date_t *d, int) { d->adjust_direction = 0; }
 // Remember that the adjustment is the inverse operation to convert to Z time
 void set_neg_zone(iso8601_date_t *d, int) { d->adjust_direction = 1; }
 void set_pos_zone(iso8601_date_t *d, int) { d->adjust_direction = -1; }
-void set_zone_hr(iso8601_date_t *d, int h) {d->adjust_value+=h*60*60;}
-void set_zone_min(iso8601_date_t *d, int m) {d->adjust_value+=m*60;}
+void set_zone_hr(iso8601_date_t *d, int h) { d->adjust_value += h * 60 * 60; }
+void set_zone_min(iso8601_date_t *d, int m) { d->adjust_value += m * 60; }
 
 // A set of data used to parse the fields of the message
 static field_validator_t fields[] = {
@@ -90,8 +86,8 @@ static field_validator_t fields[] = {
     {VAL_OPTION, false, is_plus, set_pos_zone, 1, 0, 0},
     {VAL_OPTION, false, is_minus, set_neg_zone, 1, 0, 0},
     {VAL_NUMBER, false, isdigit, set_zone_hr, 2, 0, 23},  // Hours
-    {VAL_DELIM, false, is_colon, NULL, 1, 0, 0},   // :
-    {VAL_NUMBER, true, isdigit, set_zone_min, 2, 0, 59},   // Minutes
+    {VAL_DELIM, false, is_colon, NULL, 1, 0, 0},          // :
+    {VAL_NUMBER, true, isdigit, set_zone_min, 2, 0, 59},  // Minutes
 };
 
 // TODO:  any validation specific initialization
@@ -101,7 +97,6 @@ parser_t new_parser(iso8601_date_t *date) {
   parser_t v = {date, date_get_len(date), 0};
   return v;
 }
-
 
 // Peek at the current character, but don't increment
 bool parser_peek_char(parser_t *v, char *c) {
@@ -119,13 +114,12 @@ bool parser_peek_char(parser_t *v, char *c) {
 bool parser_get_char(parser_t *v, char *c) {
   bool ret = parser_peek_char(v, c);
   if (ret == true) {
-  ++v->position;}
+    ++v->position;
+  }
   return ret;
 }
 
-void parser_reset_char(parser_t *v) {
-  --v->position;
-}
+void parser_reset_char(parser_t *v) { --v->position; }
 
 // Uses the field validator to grab the required characters and validates
 // them for correctness and range (if the value is an integer)
@@ -138,7 +132,7 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
   for (int i = 0; i < field->size; i++) {
     // Arbitrary assert to protect against infinite loop
     // No field is larger than 4 characters
-    assert(i <=4 );
+    assert(i <= 4);
     if (parser_get_char(date, &buff[i]) == false) {
       valid = false;
     }
@@ -151,7 +145,7 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
   if (field->type == VAL_OPTION && valid == false) {
     parser_reset_char(date);
   } else {
-    int value = 0; 
+    int value = 0;
     if (valid == true) {
       if (field->type == VAL_NUMBER) {
         buff[field->size] = '\0';

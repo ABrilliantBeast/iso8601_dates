@@ -1,7 +1,7 @@
 #include "include/filter.h"
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -10,24 +10,22 @@
 #define HASH_SIZE 256
 
 typedef struct hash_node {
-  iso8601_date_t  *date;
-  struct hash_node *next;  
+  iso8601_date_t *date;
+  struct hash_node *next;
 } node_t;
 
 // TODO:  There are only about 15 different characters in this string, could
 // that effect the hash distribution?  Add some cache monitoring
 node_t *hash_table[HASH_SIZE];
 
-void init_filter() {
-  memset(hash_table, 0, sizeof(hash_table));
-}
+void init_filter() { memset(hash_table, 0, sizeof(hash_table)); }
 
 static int64_t compute_adjusted_time(const iso8601_date_t *date) {
-  return date->seconds + date->adjust_direction*date->adjust_value;
+  return date->seconds + date->adjust_direction * date->adjust_value;
 }
 
 static uint8_t compute_hash(const iso8601_date_t *date) {
-  return compute_adjusted_time(date)%HASH_SIZE;
+  return compute_adjusted_time(date) % HASH_SIZE;
 }
 
 static uint8_t compute_hash_str(const iso8601_date_t *date) {
@@ -36,7 +34,7 @@ static uint8_t compute_hash_str(const iso8601_date_t *date) {
   uint8_t val = 0;
   int len = strlen(hash_string);
   for (int i = 0; i < len; i++) {
-    val^= hash_string[i];
+    val ^= hash_string[i];
   }
   return val;
 }
@@ -48,7 +46,7 @@ static node_t *new_node(iso8601_date_t *date) {
   return node;
 }
 
-static bool find_entry( node_t *top, iso8601_date_t *date) {
+static bool find_entry(node_t *top, iso8601_date_t *date) {
   node_t *node = top;
 
   int64_t adjusted_date = compute_adjusted_time(date);
@@ -86,12 +84,9 @@ static bool check_presence(iso8601_date_t *date) {
   return true;
 }
 
-
 // Apply filter(s) to date
-bool filter_date( iso8601_date_t *date) {
+bool filter_date(iso8601_date_t *date) {
   bool remove = false;
   remove = check_presence(date);
   return remove;
 }
-
-
