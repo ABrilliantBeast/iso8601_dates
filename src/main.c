@@ -47,7 +47,7 @@ int main(int argc, const char* argv[]) {
   init_writer();
   
   while (!feof(in_file)) {
-    iso8601_date_t date = NULL;
+    iso8601_date_t *date = NULL;
     // probably an EOF, continue to hit to op of loop and it should exit
     if (read_date(in_file, &date) < 0) {
       if (date != NULL) {

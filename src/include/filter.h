@@ -6,6 +6,6 @@
 
 
 void init_filter();
-bool filter_date(iso8601_date_t date);
+bool filter_date(iso8601_date_t *date);
 
 #endif // FILTER_H

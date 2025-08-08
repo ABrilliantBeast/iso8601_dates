@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 
-int read_date(FILE *in, iso8601_date_t *date);
+int read_date(FILE *in, iso8601_date_t **date);
 
 
 

@@ -4,13 +4,13 @@
 #include "include/reader.h"
 
 
-// TODO:  Any specifc intitalization for reader
+// TODO:  Any specific initialization for reader
 void init_reader(){
 
 }
 
 
-int read_date(FILE *in_file, iso8601_date_t *date) {
+int read_date(FILE *in_file, iso8601_date_t **date) {
   char *line = NULL;
   size_t n = 0;
   int len  = getline(&line, &n, in_file);
@@ -30,6 +30,6 @@ int read_date(FILE *in_file, iso8601_date_t *date) {
   } 
   // Erase the \n
   line[len-1] = '\0';
-  *date = line;
+  *date = new_date(line);
   return 0;
 }

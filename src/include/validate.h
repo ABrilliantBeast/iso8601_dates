@@ -6,6 +6,6 @@
 
 void init_validate();
 
-bool validate_date(const iso8601_date_t date);
+bool validate_date(iso8601_date_t *date);
 
 #endif  // VALIDATE_H

@@ -8,7 +8,7 @@ void init_writer() {
 
 }
 
-int write_date(FILE *out_file, iso8601_date_t date) {
-  int n = fprintf(out_file, "%s\n", (char *)date);
+int write_date(FILE *out_file, iso8601_date_t *date) {
+  int n = fprintf(out_file, "%s\n", date->str);
   return n;
 }
