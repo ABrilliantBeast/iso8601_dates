@@ -5,6 +5,6 @@
 #include "stdbool.h"
 
 void init_filter();
-bool filter_date(iso8601_date_t *date);
+bool filter_time(iso8601_time_t *time);
 
 #endif  // FILTER_H

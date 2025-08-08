@@ -6,9 +6,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Struct parser  keeps position in the date string
+// Struct parser  keeps position in the time string
 typedef struct parse {
-  iso8601_date_t *date;
+  iso8601_time_t *time;
   int len;
   int position;
 } parser_t;
@@ -18,10 +18,10 @@ typedef enum field_type { VAL_NUMBER, VAL_DELIM, VAL_OPTION } field_type_t;
 // Callback used to test if character valid
 typedef int (*char_test_t)(int);
 
-// Callback used to adjust the value of the date
-typedef void (*adjust_value_t)(iso8601_date_t *, int);
+// Callback used to adjust the value of the time
+typedef void (*adjust_value_t)(iso8601_time_t *, int);
 
-// Used to capture a field in the date
+// Used to capture a field in the time
 typedef struct field_rec {
   field_type_t type;
   bool done;
@@ -46,27 +46,27 @@ int is_minus(int c) { return c == '-'; }
 static const int month_to_days[] = {0,   31,  59,  60,  90,  121, 151,
                                     182, 212, 243, 273, 304, 334, 365};
 
-void years_to_seconds(iso8601_date_t *d, int y) {
+void years_to_seconds(iso8601_time_t *d, int y) {
   d->seconds += (y * 365 + y / 4 - y / 100 + y / 400) * 24 * 60 * 60;
 }
-void month_to_seconds(iso8601_date_t *d, int m) {
+void month_to_seconds(iso8601_time_t *d, int m) {
   d->seconds += month_to_days[m - 1] * 24 * 60 * 60;
 }
-void day_to_seconds(iso8601_date_t *d, int day) {
+void day_to_seconds(iso8601_time_t *d, int day) {
   d->seconds += (day - 1) * 24 * 60 * 60;
 }
 
 //  A set of callbacks that uses the value determined by the parser to calculate
 // a unique numerical tim
-void hour_to_seconds(iso8601_date_t *d, int h) { d->seconds += h * 60 * 60; }
-void min_to_seconds(iso8601_date_t *d, int m) { d->seconds += m * 60; }
-void sec_to_seconds(iso8601_date_t *d, int s) { d->seconds += s; }
-void set_z_zone(iso8601_date_t *d, int) { d->adjust_direction = 0; }
+void hour_to_seconds(iso8601_time_t *d, int h) { d->seconds += h * 60 * 60; }
+void min_to_seconds(iso8601_time_t *d, int m) { d->seconds += m * 60; }
+void sec_to_seconds(iso8601_time_t *d, int s) { d->seconds += s; }
+void set_z_zone(iso8601_time_t *d, int) { d->adjust_direction = 0; }
 // Remember that the adjustment is the inverse operation to convert to Z time
-void set_neg_zone(iso8601_date_t *d, int) { d->adjust_direction = 1; }
-void set_pos_zone(iso8601_date_t *d, int) { d->adjust_direction = -1; }
-void set_zone_hr(iso8601_date_t *d, int h) { d->adjust_value += h * 60 * 60; }
-void set_zone_min(iso8601_date_t *d, int m) { d->adjust_value += m * 60; }
+void set_neg_zone(iso8601_time_t *d, int) { d->adjust_direction = 1; }
+void set_pos_zone(iso8601_time_t *d, int) { d->adjust_direction = -1; }
+void set_zone_hr(iso8601_time_t *d, int h) { d->adjust_value += h * 60 * 60; }
+void set_zone_min(iso8601_time_t *d, int m) { d->adjust_value += m * 60; }
 
 // A set of data used to parse the fields of the message
 static field_validator_t fields[] = {
@@ -93,8 +93,8 @@ static field_validator_t fields[] = {
 // TODO:  any validation specific initialization
 void init_validate() {}
 
-parser_t new_parser(iso8601_date_t *date) {
-  parser_t v = {date, date_get_len(date), 0};
+parser_t new_parser(iso8601_time_t *time) {
+  parser_t v = {time, time_get_len(time), 0};
   return v;
 }
 
@@ -106,10 +106,10 @@ bool parser_peek_char(parser_t *v, char *c) {
     *c = 0;
     return false;
   }
-  *c = v->date->str[v->position];
+  *c = v->time->str[v->position];
   return true;
 }
-// Gets a character from the date string returned in c
+// Gets a character from the time string returned in c
 // If there are no more characters, return false
 bool parser_get_char(parser_t *v, char *c) {
   bool ret = parser_peek_char(v, c);
@@ -123,9 +123,9 @@ void parser_reset_char(parser_t *v) { --v->position; }
 
 // Uses the field validator to grab the required characters and validates
 // them for correctness and range (if the value is an integer)
-bool evaluate_field(const field_validator_t *field, parser_t *date) {
+bool evaluate_field(const field_validator_t *field, parser_t *time) {
   assert(field != NULL);
-  assert(date != NULL);
+  assert(time != NULL);
 
   char buff[16];
   bool valid = true;
@@ -133,7 +133,7 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
     // Arbitrary assert to protect against infinite loop
     // No field is larger than 4 characters
     assert(i <= 4);
-    if (parser_get_char(date, &buff[i]) == false) {
+    if (parser_get_char(time, &buff[i]) == false) {
       valid = false;
     }
     if (field->test_char(buff[i]) == false) {
@@ -143,7 +143,7 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
   // This is an optional delim field, push the character pack if it
   // doesn't match so next option can read it
   if (field->type == VAL_OPTION && valid == false) {
-    parser_reset_char(date);
+    parser_reset_char(time);
   } else {
     int value = 0;
     if (valid == true) {
@@ -158,7 +158,7 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
         }
       }
       if (field->adjust) {
-        field->adjust(date->date, value);
+        field->adjust(time->time, value);
       }
     }
   }
@@ -166,13 +166,13 @@ bool evaluate_field(const field_validator_t *field, parser_t *date) {
 }
 
 // Loop through the field descriptors checking matches
-bool validate_date(iso8601_date_t *date) {
-  assert(date != NULL);
+bool validate_time(iso8601_time_t *time) {
+  assert(time != NULL);
   const int NUM_FIELDS = (sizeof(fields) / sizeof(fields[0]));
 
   bool field_valid = true;
   bool match_option = false;
-  parser_t date_parser = new_parser(date);
+  parser_t time_parser = new_parser(time);
 
   for (int f = 0; f < NUM_FIELDS; f++) {
     const field_validator_t *field = &fields[f];
@@ -183,18 +183,18 @@ bool validate_date(iso8601_date_t *date) {
       if (match_option == true) continue;
       // Check the option and if not there set it to the return value
       // and keep processing
-      match_option = field_valid = evaluate_field(field, &date_parser);
+      match_option = field_valid = evaluate_field(field, &time_parser);
 
       if (field_valid && field->done) {
         break;
       }
-    } else if (evaluate_field(field, &date_parser) == false) {
+    } else if (evaluate_field(field, &time_parser) == false) {
       field_valid = false;
       break;
     }
   }
   if (!field_valid) {
-    fprintf(stderr, "Invalid date '%s'\n", date_parser.date->str);
+    fprintf(stderr, "Invalid time '%s'\n", time_parser.time->str);
   }
   return field_valid;
 }

@@ -5,7 +5,6 @@
 #include "stdbool.h"
 
 void init_validate();
-
-bool validate_date(iso8601_date_t *date);
+bool validate_time(iso8601_time_t *time);
 
 #endif  // VALIDATE_H

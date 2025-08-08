@@ -45,26 +45,26 @@ int main(int argc, const char* argv[]) {
   init_writer();
 
   while (!feof(in_file)) {
-    iso8601_date_t* date = NULL;
+    iso8601_time_t* time = NULL;
     // probably an EOF, continue to hit to op of loop and it should exit
-    if (read_date(in_file, &date) < 0) {
-      if (date != NULL) {
-        delete_date(date);
+    if (read_time(in_file, &time) < 0) {
+      if (time != NULL) {
+        delete_time(time);
       }
       continue;
     }
 
-    if (validate_date(date) == false) {
-      delete_date(date);
+    if (validate_time(time) == false) {
+      delete_time(time);
       continue;
     }
 
-    if (filter_date(date) == true) {
-      delete_date(date);
+    if (filter_time(time) == true) {
+      delete_time(time);
       continue;
     }
 
-    if (write_date(out_file, date) < 0) {
+    if (write_time(out_file, time) < 0) {
       perror("Write error\n");
       break;
     }

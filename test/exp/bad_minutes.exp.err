@@ -1,3 +1,3 @@
-Invalid date '0123-01-01T01:60:45Z'
-Invalid date '0123-01-01T01:-1:45Z'
-Invalid date '0123-01-01T01:ZZ:45Z'
+Invalid time '0123-01-01T01:60:45Z'
+Invalid time '0123-01-01T01:-1:45Z'
+Invalid time '0123-01-01T01:ZZ:45Z'

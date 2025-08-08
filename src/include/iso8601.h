@@ -10,11 +10,10 @@ typedef struct iso8601_data {
   int64_t seconds;
   int adjust_direction;  // 0, -1, +1
   int adjust_value;      // seconds
-} iso8601_date_t;
+} iso8601_time_t;
 
-iso8601_date_t *new_date(char *date);
-void delete_date(iso8601_date_t *date);
-
-int date_get_len(iso8601_date_t *d);
+iso8601_time_t *new_time(char *time);
+void delete_time(iso8601_time_t *time);
+int time_get_len(iso8601_time_t *d);
 
 #endif  // ISO_8601_h

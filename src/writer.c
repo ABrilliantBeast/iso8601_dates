@@ -5,7 +5,7 @@
 // TODO: Anything specific to writing data
 void init_writer() {}
 
-int write_date(FILE *out_file, iso8601_date_t *date) {
-  int n = fprintf(out_file, "%s\n", date->str);
+int write_time(FILE *out_file, iso8601_time_t *time) {
+  int n = fprintf(out_file, "%s\n", time->str);
   return n;
 }
