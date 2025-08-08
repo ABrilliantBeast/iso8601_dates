@@ -93,37 +93,41 @@ static field_validator_t fields[] = {
 // TODO:  any validation specific initialization
 void init_validate() {}
 
-parser_t new_parser(iso8601_time_t *time) {
-  parser_t v = {time, time_get_len(time), 0};
-  return v;
+static parser_t new_parser(iso8601_time_t *time) {
+  parser_t p = {time, time_get_len(time), 0};
+  return p;
 }
 
 // Peek at the current character, but don't increment
-bool parser_peek_char(parser_t *v, char *c) {
-  assert(v != NULL);
+static bool parser_peek_char(parser_t *p, char *c) {
+  assert(p != NULL);
   assert(c != NULL);
-  if (v->position == v->len) {
+  if (p->position == p->len) {
     *c = 0;
     return false;
   }
-  *c = v->time->str[v->position];
+  *c = p->time->str[p->position];
   return true;
 }
 // Gets a character from the time string returned in c
 // If there are no more characters, return false
-bool parser_get_char(parser_t *v, char *c) {
-  bool ret = parser_peek_char(v, c);
+static bool parser_get_char(parser_t *p, char *c) {
+  bool ret = parser_peek_char(p, c);
   if (ret == true) {
-    ++v->position;
+    ++p->position;
   }
   return ret;
 }
 
-void parser_reset_char(parser_t *v) { --v->position; }
+void parser_reset_char(parser_t *p) { --p->position; }
+
+bool parser_eof(parser_t *p) {
+  return p->position == p->len;
+}
 
 // Uses the field validator to grab the required characters and validates
 // them for correctness and range (if the value is an integer)
-bool evaluate_field(const field_validator_t *field, parser_t *time) {
+static bool evaluate_field(const field_validator_t *field, parser_t *time) {
   assert(field != NULL);
   assert(time != NULL);
 
@@ -192,6 +196,10 @@ bool validate_time(iso8601_time_t *time) {
       field_valid = false;
       break;
     }
+  }
+  // Also handle case of extraneous characters at the end of the line
+  if (field_valid && !parser_eof(&time_parser)) {
+    field_valid = false;
   }
   if (!field_valid) {
     fprintf(stderr, "Invalid time '%s'\n", time_parser.time->str);
